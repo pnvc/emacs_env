@@ -3,3 +3,10 @@
 (setq-default tab-width 8)
 (defvaralias 'c-basic-offset 'tab-width)
 (global-set-key (kbd "C-M-o") 'other-frame)
+(setq-default fill-column 80)
+(setq-default column-number-mode t)
+(setq-default display-line-numbers-mode t)
+(add-hook 'prog-mode-hook 'auto-fill-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode 'relative)
+(setq display-line-numbers-type 'relative)
+

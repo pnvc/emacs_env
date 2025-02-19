@@ -1,0 +1,5 @@
+(load-theme 'wombat)
+(setq-default ident-tabs-mode t)
+(setq-default tab-width 8)
+(defvaralias 'c-basic-offset 'tab-width)
+(global-set-key (kbd "C-M-o") 'other-frame)

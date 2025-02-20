@@ -12,3 +12,5 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 (setq visible-cursor nil)
+(when (>= emacs-major-version 21)
+  (blink-cursor-mode 0))

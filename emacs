@@ -52,4 +52,7 @@
 
 ;;(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 
- 
+;;;; backup
+(setq backup-directory-alist `(("." . "~/.emacs.backups")))
+(setq version-control t)
+(setq delete-old-versions t)

@@ -1,3 +1,6 @@
+;;;; nixan's .emacs
+;; 2025.02.19
+
 (load-theme 'wombat)
 (setq-default ident-tabs-mode t)
 (setq-default tab-width 8)
@@ -8,4 +11,4 @@
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
-
+(setq visible-cursor nil)

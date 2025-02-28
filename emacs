@@ -34,18 +34,39 @@
 (global-set-key (kbd "<f5>") (lambda () (interactive) (switch-to-frame-n 5)))
 (global-set-key (kbd "<f6>") (lambda () (interactive) (switch-to-frame-n 6)))
 (global-set-key (kbd "<f7>") (lambda () (interactive) (switch-to-frame-n 7)))
-;;(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-;; '(package-selected-packages '(company-irony flycheck-irony irony magit)))
-;;(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;;)
+
+;;;; set every frame directory
+(defun set-frame-working-directory (dir)
+  "Установить рабочую директорию для текущего фрейма."
+  (interactive "DSet working directory: ")
+  (let ((frame (selected-frame)))
+    (set-frame-parameter frame 'working-directory dir)
+    (dolist (window (window-list frame))
+      (with-current-buffer (window-buffer window)
+	(set (make-local-variable 'default-directory) dir)))))
+
+;; Синхронизация default-directory при переключении фреймов или окон
+(defun sync-frame-directory ()
+  "Синхронизировать default-directory с директорией текущего фрейма."
+  (let ((frame (selected-frame)))
+    (let ((frame-dir (frame-parameter frame 'working-directory)))
+      (dolist (window (window-list frame))
+	(with-current-buffer (window-buffer window)
+	  (set (make-local-variable 'default-directory)
+	       (if frame-dir
+		   frame-dir
+		 (expand-file-name "~/"))))))))
+
+;; Хуки для синхронизации
+(add-hook 'after-make-frame-functions
+	  (lambda (frame)
+	    (with-selected-frame frame
+	      (sync-frame-directory))))
+(add-hook 'select-frame-hook 'sync-frame-directory)
+(add-hook 'window-configuration-change-hook 'sync-frame-directory)
+
+;; Привязка команды для установки директории
+(global-set-key (kbd "C-c d") 'set-frame-working-directory)
 
 ;;;; MELPA
 (require 'package)

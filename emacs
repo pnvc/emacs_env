@@ -5,7 +5,7 @@
 (setq-default ident-tabs-mode t)
 (setq-default tab-width 8)
 (defvaralias 'c-basic-offset 'tab-width)
-(global-set-key (kbd "C-M-o") 'other-frame)
+;(global-set-key (kbd "C-M-o") 'other-frame)
 (setq-default column-number-mode t)
 (setq-default fill-column 80)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
@@ -14,6 +14,26 @@
 (setq visible-cursor nil)
 (when (>= emacs-major-version 21)
   (blink-cursor-mode 0))
+
+;;;; F1-7 frames
+(defun switch-to-frame-n (n)
+  "set active frame number n"
+  (interactive "nFrame number: ")
+  (let* ((frames (frame-list))
+	 (frame-count (length frames))
+	 (adjusted-n (- frame-count n)))
+    (if (or (< n 1) (> n frame-count))
+	(message "no frame with %d! number. Frames count: %d" n frame-count)
+      (let ((target-frame (nth adjusted-n frames)))
+	(select-frame-set-input-focus target-frame)
+	(message "set frame %d from %d count" n frame-count)))))
+(global-set-key (kbd "<f1>") (lambda () (interactive) (switch-to-frame-n 1)))
+(global-set-key (kbd "<f2>") (lambda () (interactive) (switch-to-frame-n 2)))
+(global-set-key (kbd "<f3>") (lambda () (interactive) (switch-to-frame-n 3)))
+(global-set-key (kbd "<f4>") (lambda () (interactive) (switch-to-frame-n 4)))
+(global-set-key (kbd "<f5>") (lambda () (interactive) (switch-to-frame-n 5)))
+(global-set-key (kbd "<f6>") (lambda () (interactive) (switch-to-frame-n 6)))
+(global-set-key (kbd "<f7>") (lambda () (interactive) (switch-to-frame-n 7)))
 ;;(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

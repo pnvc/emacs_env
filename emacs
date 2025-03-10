@@ -97,3 +97,7 @@
 (setq backup-directory-alist `(("." . "~/.emacs.backups")))
 (setq version-control t)
 (setq delete-old-versions t)
+
+;;;; lisp tabs width and always min 4
+(add-hook 'lisp-mode-hook
+	#'(lambda () (setq tab-width 4) (setq lisp-indent-offset 4)))

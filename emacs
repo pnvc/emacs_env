@@ -68,6 +68,8 @@
 ;;; set work dir and pwd shortcuts
 (global-set-key (kbd "C-c C-d") 'cd)
 (global-set-key (kbd "C-c C-p") 'pwd)
+(global-set-key (kbd "M-n") 'next-line)
+(global-set-key (kbd "M-p") 'previous-line)
 
 ;;;; MELPA
 (require 'package)

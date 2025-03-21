@@ -15,58 +15,59 @@
 (when (>= emacs-major-version 21)
   (blink-cursor-mode 0))
 
-;;;; F1-7 frames
-(defun switch-to-frame-n (n)
-  "set active frame number n"
-  (interactive "nFrame number: ")
-  (let* ((frames (frame-list))
-	 (frame-count (length frames))
-	 (adjusted-n (- frame-count n)))
-    (if (or (< n 1) (> n frame-count))
-	(message "no frame with %d! number. Frames count: %d" n frame-count)
-      (let ((target-frame (nth adjusted-n frames)))
-	(select-frame-set-input-focus target-frame)
-	(message "set frame %d from %d count" n frame-count)))))
-(global-set-key (kbd "<f1>") (lambda () (interactive) (switch-to-frame-n 1)))
-(global-set-key (kbd "<f2>") (lambda () (interactive) (switch-to-frame-n 2)))
-(global-set-key (kbd "<f3>") (lambda () (interactive) (switch-to-frame-n 3)))
-(global-set-key (kbd "<f4>") (lambda () (interactive) (switch-to-frame-n 4)))
-(global-set-key (kbd "<f5>") (lambda () (interactive) (switch-to-frame-n 5)))
-(global-set-key (kbd "<f6>") (lambda () (interactive) (switch-to-frame-n 6)))
-(global-set-key (kbd "<f7>") (lambda () (interactive) (switch-to-frame-n 7)))
-
-;;;; set every frame directory
-(defun set-frame-working-directory (dir)
-  "Установить рабочую директорию для текущего фрейма."
-  (interactive "DSet working directory: ")
-  (let ((frame (selected-frame)))
-    (set-frame-parameter frame 'working-directory dir)
-    (dolist (window (window-list frame))
-      (with-current-buffer (window-buffer window)
-	(set (make-local-variable 'default-directory) dir)))))
-
-;; Синхронизация default-directory при переключении фреймов или окон
-(defun sync-frame-directory ()
-  "Синхронизировать default-directory с директорией текущего фрейма."
-  (let ((frame (selected-frame)))
-    (let ((frame-dir (frame-parameter frame 'working-directory)))
-      (dolist (window (window-list frame))
-	(with-current-buffer (window-buffer window)
-	  (set (make-local-variable 'default-directory)
-	       (if frame-dir
-		   frame-dir
-		 (expand-file-name "~/"))))))))
-
-;; Хуки для синхронизации
-(add-hook 'after-make-frame-functions
-	  (lambda (frame)
-	    (with-selected-frame frame
-	      (sync-frame-directory))))
-(add-hook 'select-frame-hook 'sync-frame-directory)
-(add-hook 'window-configuration-change-hook 'sync-frame-directory)
-
-;; Привязка команды для установки директории
-(global-set-key (kbd "C-c d") 'set-frame-working-directory)
+;;;;; F1-7 frames
+;(defun switch-to-frame-n (n)
+;  "set active frame number n"
+;  (interactive "nFrame number: ")
+;  (let* ((frames (frame-list))
+;	 (frame-count (length frames))
+;	 (adjusted-n (- frame-count n)))
+;    (if (or (< n 1) (> n frame-count))
+;	(message "no frame with %d! number. Frames count: %d" n frame-count)
+;      (let ((target-frame (nth adjusted-n frames)))
+;	(select-frame-set-input-focus target-frame)
+;	(message "set frame %d from %d count" n frame-count)))))
+;(global-set-key (kbd "<f1>") (lambda () (interactive) (switch-to-frame-n 1)))
+;(global-set-key (kbd "<f2>") (lambda () (interactive) (switch-to-frame-n 2)))
+;(global-set-key (kbd "<f3>") (lambda () (interactive) (switch-to-frame-n 3)))
+;(global-set-key (kbd "<f4>") (lambda () (interactive) (switch-to-frame-n 4)))
+;(global-set-key (kbd "<f5>") (lambda () (interactive) (switch-to-frame-n 5)))
+;(global-set-key (kbd "<f6>") (lambda () (interactive) (switch-to-frame-n 6)))
+;(global-set-key (kbd "<f7>") (lambda () (interactive) (switch-to-frame-n 7)))
+;
+;;;;; set every frame directory
+;(defun set-frame-working-directory (dir)
+;  "set work dir of current frame."
+;  (interactive "DSet working directory: ")
+;  (let ((frame (selected-frame)))
+;    (set-frame-parameter frame 'working-directory dir)
+;    (dolist (window (window-list frame))
+;      (with-current-buffer (window-buffer window)
+;	(set (make-local-variable 'default-directory) dir)))))
+;
+;;; sync default-directory while change window or frame
+;(defun sync-frame-directory ()
+;  "sync default-directory with dir of current frame."
+;  (let ((frame (selected-frame)))
+;    (let ((frame-dir (frame-parameter frame 'working-directory)))
+;      (dolist (window (window-list frame))
+;	(with-current-buffer (window-buffer window)
+;	  (set (make-local-variable 'default-directory)
+;	       (if frame-dir
+;		   frame-dir
+;		 (expand-file-name "~/"))))))))
+;
+;;; sync hooks
+;(add-hook 'after-make-frame-functions
+;	  (lambda (frame)
+;	    (with-selected-frame frame
+;	      (sync-frame-directory))))
+;(add-hook 'select-frame-hook 'sync-frame-directory)
+;(add-hook 'window-configuration-change-hook 'sync-frame-directory)
+;
+;;; set work dir and pwd shortcuts
+(global-set-key (kbd "C-c C-d") 'cd)
+(global-set-key (kbd "C-c C-p") 'pwd)
 
 ;;;; MELPA
 (require 'package)

@@ -70,29 +70,30 @@
 (global-set-key (kbd "C-c C-p") 'pwd)
 (global-set-key (kbd "M-n") 'next-line)
 (global-set-key (kbd "M-p") 'previous-line)
+(global-set-key (kbd "C-x C-o") 'other-frame)
 
 ;;;; MELPA
-(require 'package)
-(add-to-list 'package-archives
-	                  '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;require 'package)
+;add-to-list 'package-archives
+;	                  '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
+;package-initialize)
 
 ;;;; Irony auto complete
-(require 'irony)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(require 'company-irony)
-(require 'company-irony-c-headers)
-(require 'company-clang)
-(eval-after-load 'company '(add-to-list 'company-backends 'company-clang))
-(eval-after-load 'company '(add-to-list 'company-backends 'company-irony-c-headers))
-(eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
+;require 'irony)
+;add-hook 'c++-mode-hook 'irony-mode)
+;add-hook 'c-mode-hook 'irony-mode)
+;add-hook 'objc-mode-hook 'irony-mode)
+;require 'company)
+;add-hook 'after-init-hook 'global-company-mode)
+;require 'company-irony)
+;require 'company-irony-c-headers)
+;require 'company-clang)
+;eval-after-load 'company '(add-to-list 'company-backends 'company-clang))
+;eval-after-load 'company '(add-to-list 'company-backends 'company-irony-c-headers))
+;eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
 
 ;;(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 

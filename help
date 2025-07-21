@@ -1,0 +1,60 @@
+		// boomarks
+c-x r m --- new bookmark
+c-x r b --- open bookmark
+c-x r l --- list bookmarks and save or delete
+
+      	    	// emacs commands
+m-x --- call command
+m-: --- evaluate lisp
+
+		 // goto mark
+c-x u space --- goto last mark
+
+      	    	// undo redo
+c-/ --- undo
+    do something (c-f for example) and will be redo
+
+m-u --- set number for count of next operation
+
+    	    	   // tab bar
+c-x t 2 --- new tab
+c-x t o --- switch tab
+c-x t 0 --- close tab
+c-x t 1 --- close other tabs
+c-x t b --- open buffer in another tab
+c-x t f --- open file in another tab
+c-x t d --- open dir in another tab
+c-x t RET name RET --- switch to tab by name
+c-x t r --- set new name for tab
+
+      	    	    // join lines
+m-^ --- join current line with prev line
+
+    	     	     // windowing
+c-x 3 --- vertical split
+c-x 2 --- horizontal split
+c-x 1 --- close other windows
+c-x 0 --- close current window
+
+      	  		// grep
+m-x :::
+    grep
+    rgrep
+    c-c k --- kill grep process
+
+
+    	      	   	// DIRECTORY
+open directory, then use:
+     = --- diff
+     o --- find in other window
+     v --- view file
+     q --- back form view or prev directory
+     m --- mark
+     d --- mark for delete
+     x --- execute delete
+     C --- copy marked
+     u --- unmark
+     t --- togle whole marks
+     with % some command above - mark by regexp
+     U --- unmark marked files
+     O, M, G --- owner, mode, group

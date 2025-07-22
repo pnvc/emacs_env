@@ -58,3 +58,4 @@ open directory, then use:
      with % some command above - mark by regexp
      U --- unmark marked files
      O, M, G --- owner, mode, group
+     m-x find-name-dired RET dir name RET wildcard RET
